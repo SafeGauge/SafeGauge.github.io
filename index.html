@@ -84,13 +84,13 @@ navigator.usb.requestDevice({ filters: [{ vendorId: 0x2341 }] })
 .catch(error => { console.error(error); });
 
     </script>
-    <button id="mcu_two">Connect to a ar</button>
+    <button id="mcu_two">Connect to a ardu</button>
 <script>
   let device;
   document.getElementById('mcu_two').addEventListener('click',function(){
       if (navigator.usb) {
           navigator.usb.requestDevice({
-              filters: []
+              filters: [{ vendorId: 0x2341 }]
           })
           .then(selectedDevice => {
           device = selectedDevice;
@@ -103,7 +103,13 @@ navigator.usb.requestDevice({ filters: [{ vendorId: 0x2341 }] })
                   device.manufacturerName + ', ' +
                   device.productName;
           });
-      }
+          .then(() => device.controlTransferOut({
+          requestType: 'class',
+          recipient: 'interface',
+          request: 0x22,
+          value: 0x01,
+          index: 0x02})) // Ready to receive data
+          }
   });
 
 </script>
