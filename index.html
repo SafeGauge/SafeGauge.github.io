@@ -61,7 +61,7 @@
         <button id="mcu">Connect to a arduino</button>
     <script>
       let device;
-document.getElementById('usb_two').addEventListener('click',function(){
+document.getElementById('mcu').addEventListener('click',function(){
 navigator.usb.requestDevice({ filters: [{ vendorId: 0x2341 }] })
 .then(selectedDevice => {
     device = selectedDevice;
