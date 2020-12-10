@@ -84,7 +84,7 @@ navigator.usb.requestDevice({ filters: [{ vendorId: 0x2341 }] })
 .catch(error => { console.error(error); });
 
     </script>
-    <button id="mcu_two">Connect to a arduino0</button>
+    <button id="mcu_two">Connect to a arduino</button>
 <script>
   let device;
   document.getElementById('mcu_two').addEventListener('click',function(){
@@ -98,6 +98,14 @@ navigator.usb.requestDevice({ filters: [{ vendorId: 0x2341 }] })
           })
           .then(() => device.selectConfiguration(1)) // Select configuration #1 for the device.
           .then(() => device.claimInterface(2)) // Request exclusive control over interface #2.
+          .then(() => device.controlTransferOut({
+           requestType: 'class',
+           recipient: 'interface',
+           request: 0x22,
+           value: 0x01,
+           index: 0x02})) // Ready to receive data
+
+
           .then(function(device){
               document.body.innerHTML +=
                   device.manufacturerName + ', ' +
@@ -107,12 +115,7 @@ navigator.usb.requestDevice({ filters: [{ vendorId: 0x2341 }] })
 
           
   });
-  .then(() => device.controlTransferOut({
-   requestType: 'class',
-   recipient: 'interface',
-   request: 0x22,
-   value: 0x01,
-   index: 0x02})) // Ready to receive data
+
 
 </script>
 
