@@ -84,13 +84,13 @@ navigator.usb.requestDevice({ filters: [{ vendorId: 0x2341 }] })
 .catch(error => { console.error(error); });
 
     </script>
-    <button id="mcu_two">Connect to a arduino</button>
+    <button id="mcu_two">Connect to a arduino00</button>
 <script>
   let device;
   document.getElementById('mcu_two').addEventListener('click',function(){
       if (navigator.usb) {
           navigator.usb.requestDevice({
-              filters: []
+              filters: [{ vendorId: 0x2341 }]
           })
           .then(selectedDevice => {
           device = selectedDevice;
@@ -104,7 +104,12 @@ navigator.usb.requestDevice({ filters: [{ vendorId: 0x2341 }] })
            request: 0x22,
            value: 0x01,
            index: 0x02})) // Ready to receive data
-
+           .then(() => device.transferIn(5, 64)) // Waiting for 64 bytes of data from endpoint #5.
+           .then(result => {
+           const decoder = new TextDecoder();
+           console.log('Received: ' + decoder.decode(result.data));
+           })
+           .catch(error => { console.error(error); })
 
           .then(function(device){
               document.body.innerHTML +=
