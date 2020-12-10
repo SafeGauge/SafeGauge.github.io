@@ -84,13 +84,13 @@ navigator.usb.requestDevice({ filters: [{ vendorId: 0x2341 }] })
 .catch(error => { console.error(error); });
 
     </script>
-    <button id="mcu_two">Connect to a ardu</button>
+    <button id="mcu_two">Connect to a arduino</button>
 <script>
   let device;
   document.getElementById('mcu_two').addEventListener('click',function(){
       if (navigator.usb) {
           navigator.usb.requestDevice({
-              filters: [{ vendorId: 0x2341 }]
+              filters: []
           })
           .then(selectedDevice => {
           device = selectedDevice;
