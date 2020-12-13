@@ -1,127 +1,35 @@
-<hr />
-<h1 style="text-align: center;"><span style="color: #ff0000;"><strong> Safe Gauge Firmware Updater</strong></span></h1>
-<hr />
-<p>To update the firmware:</p>
-<ol>
-<li>Connect data link</li>
-<li>Download the latest firmware from URL</li>
-<li>Upload the firmware to the data link</li>
-</ol>
-<p><label for="myfile">Select a hex file:</label><input id="myfile" name="myfile" type="file" /><br /><br /><input type="submit" /></p>
-<table style="margin-left: auto; margin-right: auto;" border="1">
-<tbody>
-<tr>
-<td>Tool</td>
-<td>&nbsp;Latest Firmware</td>
-</tr>
-<tr>
-<td>Multi Tool</td>
-<td>&nbsp;Rev 1.01</td>
-</tr>
-<tr>
-<td>Sensor</td>
-<td>&nbsp;Rev 1.01</td>
-</tr>
-<tr>
-<td>Data Link</td>
-<td>&nbsp;Rev 1.00</td>
-</tr>
-</tbody>
-  <button id="usb">Connect to all USB Device</button>  
-    <script>
-        document.getElementById('usb').addEventListener('click',function(){
-            if (navigator.usb) {
-                navigator.usb.requestDevice({
-                    filters: []
-                })
-                .then(function(device){
-                    document.body.innerHTML +=
-                        device.manufacturerName + ', ' +
-                        device.productName;
-                });
-            }
-        });
-    </script>
-      <button id="usb_two">Connect to a specific usb(vendor id)</button>
-    <script>
-        document.getElementById('usb_two').addEventListener('click',function(){
-            if (navigator.usb) {
-                navigator.usb.requestDevice({
-                    filters: [{ vendorId: 0x0403 }] //filtering by vendor ID
-                })
-                .then(function(device){
-                    document.body.innerHTML +=
-                        device.manufacturerName + ', ' +
-                        device.productName;
-                });
+<a href="#" id="click"> Connect to USB!</a>
+<script src="serial.js"></script>
 
-            }
-        });
-    </script>
-        <button id="mcu">Connect to a arduino</button>
-    <script>
-      let device;
-document.getElementById('mcu').addEventListener('click',function(){
-navigator.usb.requestDevice({ filters: [{ vendorId: 0x2341 }] })
-.then(selectedDevice => {
-    device = selectedDevice;
-    return device.open(); // Begin a session.
-  })
-    });
-.then(() => device.selectConfiguration(1)) // Select configuration #1 for the device.
-.then(() => device.claimInterface(2)) // Request exclusive control over interface #2.
-.then(() => device.controlTransferOut({
-    requestType: 'class',
-    recipient: 'interface',
-    request: 0x22,
-    value: 0x01,
-    index: 0x02})) // Ready to receive data
-.then(() => device.transferIn(5, 64)) // Waiting for 64 bytes of data from endpoint #5.
-.then(result => {
-  const decoder = new TextDecoder();
-  console.log('Received: ' + decoder.decode(result.data));
-})
-.catch(error => { console.error(error); });
-
-    </script>
-    <button id="mcu_two">Connect to a arduino00</button>
 <script>
-  let device;
-  document.getElementById('mcu_two').addEventListener('click',function(){
-      if (navigator.usb) {
-          navigator.usb.requestDevice({
-              filters: [{ vendorId: 0x2341 }]
-          })
-          .then(selectedDevice => {
-          device = selectedDevice;
-          return device.open(); // Begin a session.
-          })
-          .then(() => device.selectConfiguration(1)) // Select configuration #1 for the device.
-          .then(() => device.claimInterface(2)) // Request exclusive control over interface #2.
-          .then(() => device.controlTransferOut({
-           requestType: 'class',
-           recipient: 'interface',
-           request: 0x22,
-           value: 0x01,
-           index: 0x02})) // Ready to receive data
-           .then(() => device.transferIn(5, 64)) // Waiting for 64 bytes of data from endpoint #5.
-           .then(result => {
-           const decoder = new TextDecoder();
-           console.log('Received: ' + decoder.decode(result.data));
-           })
-           .catch(error => { console.error(error); })
-
-          .then(function(device){
-              document.body.innerHTML +=
-                  device.manufacturerName + ', ' +
-                  device.productName;
-          });
-          }
-
-          
-  });
-
-
+serial.requestPort = function(){
+  const filters = [
+    {'vendorId': 0x2341}
+  ];
+  return navigator.usb.requestDevice({'filters':filters}).then(
+    device => new serial.Port(device)
+  );
+}
+var port 
+var connectButton = documnet.getElementById('click')
+var textDecoder = new TextDecoder()
+connectButton.addEventListener('click', function()
+{
+  if(port){
+    connectButton.textContent = 'Connect'
+    port.disconnect()
+    port = null
+  }
+  else {
+    serial.requestPort().then(selectedPort => {
+      port = selectedPort
+      port.connect().then(() => {
+        console.log('Connected!')
+        connectButton.textContent = 'Disconnect'
+        port.onReceive = data => {console.console.log(textDecoder.decode(data))}
+        port.onReceiveError = error => {console.log('Receive error: '+ error)}
+      }, error => {console.log('Connection error: '+ error) })
+    }).catch(error =>{console.log('Connection error: ' + error) })
+  }
+})
 </script>
-
-</table>
