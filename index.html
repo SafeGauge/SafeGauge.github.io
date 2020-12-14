@@ -2,34 +2,38 @@
 <script src="serial.js"></script>
 
 <script>
-serial.requestPort = function(){
-  const filters = [
-    {'vendorId': 0x2341}
-  ];
-  return navigator.usb.requestDevice({'filters':filters}).then(
-    device => new serial.Port(device)
-  );
-}
-var port 
-var connectButton = document.getElementById('click')
-var textDecoder = new TextDecoder()
-connectButton.addEventListener('click', function()
-{
-  if(port){
-    connectButton.textContent = 'Connect'
-    port.disconnect()
-    port = null
-  }
-  else {
-    serial.requestPort().then(selectedPort => {
-      port = selectedPort
-      port.connect().then(() => {
-        console.log('Connected!')
-        connectButton.textContent = 'Disconnect'
-        port.onReceive = data => {console.console.log(textDecoder.decode(data))}
-        port.onReceiveError = error => {console.log('Receive error: '+ error)}
-      }, error => {console.log('Connection error: '+ error) })
-    }).catch(error =>{console.log('Connection error: ' + error) })
-  }
-})
+  let device;
+  document.getElementById('click').addEventListener('click',function(){
+      if (navigator.usb) {
+          navigator.usb.requestDevice({
+              filters: [{ vendorId: 0x2341 }]
+          })
+          .then(selectedDevice => {
+          device = selectedDevice;
+          return device.open(); // Begin a session.
+          })
+          .then(() => device.selectConfiguration(1)) // Select configuration #1 for the device.
+          .then(() => device.claimInterface(2)) // Request exclusive control over interface #2.
+          .then(() => device.controlTransferOut({
+           requestType: 'class',
+           recipient: 'interface',
+           request: 0x22,
+           value: 0x01,
+           index: 0x02})) // Ready to receive data
+           .then(() => device.transferIn(5, 64)) // Waiting for 64 bytes of data from endpoint #5.
+           .then(result => {
+           const decoder = new TextDecoder();
+           console.log('Received: ' + decoder.decode(result.data));
+           })
+           .catch(error => { console.error(error); })
+
+          .then(function(device){
+              document.body.innerHTML +=
+                  device.manufacturerName + ', ' +
+                  device.productName;
+          });
+          }
+
+          
+  });
 </script>
