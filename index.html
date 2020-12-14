@@ -1,4 +1,4 @@
-<a href="#" id="click"> Connect to U!</a>
+<a href="#" id="click"> Connect to USB!</a>
 <script src="serial.js"></script>
 
 <script>
@@ -26,14 +26,9 @@
            console.log('Received: ' + decoder.decode(result.data));
            })
            .catch(error => { console.error(error); })
-
-          .then(function(device){
-              document.body.innerHTML +=
-                  device.manufacturerName + ', ' +
-                  device.productName;
-          });
           }
 
           
   });
 </script>
+
