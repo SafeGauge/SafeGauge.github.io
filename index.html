@@ -15,7 +15,7 @@ serial.requestPort = function(){
 var port
 var connectButton = document.getElementById('click')
 var textDecoder = new TextDecoder()
-var number = 0
+var number = 67
 connectButton.addEventListener('click', function()
 {
   if(port){
@@ -29,7 +29,7 @@ connectButton.addEventListener('click', function()
       port.connect().then(() => {
         console.log('Connected!')
         connectButton.textContent = 'Disconnect'
-        port.onReceive = data =>{number = textDecoder.decode(data)}
+        port.onReceive = data => {console.log(textDecoder.decode(data))}
         port.onReceiveError = error => {console.log('Receive error: '+ error)}
       }, error => {console.log('Connection error: '+ error) })
     }).catch(error =>{console.log('Connection error: ' + error) })
