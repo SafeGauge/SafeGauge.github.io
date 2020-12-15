@@ -1,5 +1,5 @@
 <h1>Safe Gauge </h1>
-<p>  Firmware updater and IOT Dashboar</p>
+<p>  Firmware updater and IOT Dashboard</p>
 <a href="#" id="click"> Connect to USB!</a>
 <script src="serial.js"></script>
 
@@ -15,6 +15,7 @@ serial.requestPort = function(){
 var port
 var connectButton = document.getElementById('click')
 var textDecoder = new TextDecoder()
+var number = 0
 connectButton.addEventListener('click', function()
 {
   if(port){
@@ -29,10 +30,11 @@ connectButton.addEventListener('click', function()
         console.log('Connected!')
         connectButton.textContent = 'Disconnect'
         port.onReceive = data => {console.log(textDecoder.decode(data))}
-        <p><label for="file">File progress:</label> <progress id="file" value=textDecoder.decode(data) max="100"> 70% </progress></p>
+        number = textDecoder.decode(data)
         port.onReceiveError = error => {console.log('Receive error: '+ error)}
       }, error => {console.log('Connection error: '+ error) })
     }).catch(error =>{console.log('Connection error: ' + error) })
   }
 })
 </script>
+<p><label for="file">File progress:</label> <progress id="file" value="number" max="100"> 70% </progress></p>
