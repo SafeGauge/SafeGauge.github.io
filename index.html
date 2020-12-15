@@ -1,5 +1,5 @@
 <h1>Safe Gauge </h1>
-<p>  Firmware updater and IOT Dashboardd</p>
+<p>  Firmware updater and IOT Dashboar</p>
 <a href="#" id="click"> Connect to USB!</a>
 <script src="serial.js"></script>
 
@@ -29,7 +29,10 @@ connectButton.addEventListener('click', function()
       port.connect().then(() => {
         console.log('Connected!')
         connectButton.textContent = 'Disconnect'
-        port.onReceive = data => {console.log(textDecoder.decode(data))}
+        port.onReceive = data => {
+          console.log(textDecoder.decode(data))
+          number = textDecoder.decode(data)
+        }
         port.onReceiveError = error => {console.log('Receive error: '+ error)}
       }, error => {console.log('Connection error: '+ error) })
     }).catch(error =>{console.log('Connection error: ' + error) })
