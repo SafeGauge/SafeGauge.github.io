@@ -222,7 +222,7 @@ a.link {
 <body>
   <h1>Safe_Gauge </h1>
 
-  <a href="#" id="click"> Connect to USB</a>
+  <a href="#" id="click"> Connect to USB!</a>
 <div class="tab">
   <button class="tablinks" onclick="openCity(event, 'London')">IOT Dashboard</button>
   <button class="tablinks" onclick="openCity(event, 'Paris')">Firmware Update</button>
@@ -334,6 +334,7 @@ var gauge1 = Gauge(
     value: 0,
   }
 );
+document.getElementById("gauge1").style.border = "3px solid yellow";
 </script>
 <script>
 var gauge2 = Gauge(
@@ -344,6 +345,7 @@ var gauge2 = Gauge(
     value: 40,
   }
 );
+document.getElementById("gauge2").style.border = "3px solid yellow";
 </script>
 <script>
 var gauge3 = Gauge(
@@ -354,7 +356,7 @@ var gauge3 = Gauge(
     value: 40,
   }
 );
-document.getElementById("gauge6").style.border = "3px solid yellow";
+document.getElementById("gauge3").style.border = "3px solid yellow";
 </script>
 <script>
 var gauge4 = Gauge(
@@ -365,7 +367,7 @@ var gauge4 = Gauge(
     value: 40,
   }
 );
-document.getElementById("gauge6").style.border = "3px solid green";
+document.getElementById("gauge4").style.border = "3px solid green";
 </script>
 <script>
 var gauge5 = Gauge(
@@ -376,7 +378,7 @@ var gauge5 = Gauge(
     value: 40,
   }
 );
-document.getElementById("gauge6").style.border = "coral";
+document.getElementById("gauge5").style.border = "coral";
 </script>
 <script>
 
