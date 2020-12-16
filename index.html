@@ -1,5 +1,5 @@
 <h1>Safe Gauge </h1>
-<p>  Firmware updater and IOT Dashboard</p>
+<p>  Firmware updater and IOT Dashboar</p>
 <a href="#" id="click"> Connect to USB!</a>
 <script src="serial.js"></script>
 
@@ -45,6 +45,9 @@ connectButton.addEventListener('click', function()
 <p id="num"></p> <p><button onclick = "subtractor()">Minus 1</button></p>
  <script> 
    var x = 5 
-   document.getElementById("num").innerHTML = x; 
-   function subtractor(){ x = x-1; }; 
+  
+   function subtractor(){
+      x = x-1; 
+      document.getElementById("num").innerHTML = x; 
+    }; 
 </script>
