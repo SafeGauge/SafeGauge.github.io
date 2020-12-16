@@ -1,54 +1,137 @@
-<h1>Safe Gauge </h1>
-<p>  Firmware updater and IOT Dashboar</p>
-<a href="#" id="click"> Connect to USB!</a>
-<script src="serial.js"></script>
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial;}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+</style>
+</head>
+<body>
+  <h1>Safe Gauge </h1>
+  <p>  Firmware updater and IOT Dashboar</p>
+  <script src="serial.js"></script>
+  <script>
+  serial.requestPort = function(){
+    const filters = [
+      {'vendorId': 0x2341}
+    ];
+    return navigator.usb.requestDevice({'filters':filters}).then(
+      device => new serial.Port(device)
+    );
+  }
+  var port
+  var connectButton = document.getElementById('click')
+  var textDecoder = new TextDecoder()
+  var number = 67
+  connectButton.addEventListener('click', function()
+  {
+    if(port){
+      connectButton.textContent = 'Connect to Data Link'
+      port.disconnect()
+      port = null
+    }
+    else {
+      serial.requestPort().then(selectedPort => {
+        port = selectedPort
+        port.connect().then(() => {
+          console.log('Connected!')
+          connectButton.textContent = 'Disconnect'
+          port.onReceive = data => {
+            console.log(textDecoder.decode(data))
+            document.getElementById("num_two").innerHTML = textDecoder.decode(data);
+            document.getElementById("file").value = textDecoder.decode(data);
+          }
+          port.onReceiveError = error => {console.log('Receive error: '+ error)}
+        }, error => {console.log('Connection error: '+ error) })
+      }).catch(error =>{console.log('Connection error: ' + error) })
+    }
+  })
+  </script>
+  <script> 
+    var x = 5 
+    function subtractor(){
+       x = x-1; 
+       document.getElementById("num").innerHTML = x; 
+     }; 
+ </script>
+
+<div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'London')">London</button>
+  <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
+  <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+</div>
+
+<div id="London" class="tabcontent">
+  <h3>DASHBOARD</h3>
+  <a href="#" id="click"> Connect to USB!</a>
+  <p><label for="file">File progress:</label> <progress id="file" value="number" max="100"> 70% </progress></p>
+  <p id="num_two"></p> 
+  <p id="num"></p> 
+  <p><button onclick = "subtractor()">Minus 1</button></p>
+</div>
+
+<div id="Paris" class="tabcontent">
+  <h3>Paris</h3>
+  <p>Paris is the capital of France.</p>
+</div>
+
+<div id="Tokyo" class="tabcontent">
+  <h3>Tokyo</h3>
+  <p>Tokyo is the capital of Japan.</p>
+</div>
 
 <script>
-serial.requestPort = function(){
-  const filters = [
-    {'vendorId': 0x2341}
-  ];
-  return navigator.usb.requestDevice({'filters':filters}).then(
-    device => new serial.Port(device)
-  );
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
 }
-var port
-var connectButton = document.getElementById('click')
-var textDecoder = new TextDecoder()
-var number = 67
-connectButton.addEventListener('click', function()
-{
-  if(port){
-    connectButton.textContent = 'Connect to Data Link'
-    port.disconnect()
-    port = null
-  }
-  else {
-    serial.requestPort().then(selectedPort => {
-      port = selectedPort
-      port.connect().then(() => {
-        console.log('Connected!')
-        connectButton.textContent = 'Disconnect'
-        port.onReceive = data => {
-          console.log(textDecoder.decode(data))
-          document.getElementById("num_two").innerHTML = textDecoder.decode(data);
-          document.getElementById("file").value = textDecoder.decode(data);
-        }
-        port.onReceiveError = error => {console.log('Receive error: '+ error)}
-      }, error => {console.log('Connection error: '+ error) })
-    }).catch(error =>{console.log('Connection error: ' + error) })
-  }
-})
 </script>
 
-<p><label for="file">File progress:</label> <progress id="file" value="number" max="100"> 70% </progress></p>
-<p id="num_two"></p> 
-<p id="num"></p> 
-<p><button onclick = "subtractor()">Minus 1</button></p>
- <script> 
-   var x = 5 
-   function subtractor(){
-      x = x-1; 
-      document.getElementById("num").innerHTML = x; 
-    }; 
-</script>
+</body>
+</html>
