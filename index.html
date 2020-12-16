@@ -219,7 +219,7 @@ a.link {
 </style>
 </head>
 <body>
-  <h1>Safe Gauge </h1>
+  <h1>Safe_Gauge </h1>
 
   <a href="#" id="click"> Connect to USB!</a>
 <div class="tab">
@@ -235,6 +235,9 @@ a.link {
   <p><button onclick = "subtractor()">Minus 1</button></p>
   <div id="gauge1" class="gauge-container">
     <span class="label">Sensor1</span>
+</div>
+<div id="gauge2" class="gauge-container">
+  <span class="label">Sensor2</span>
 </div>
 </div>
 
@@ -316,6 +319,16 @@ var gauge1 = Gauge(
     dialStartAngle: -90,
     dialEndAngle: -90.001,
     value: 0,
+  }
+);
+</script>
+<script>
+var gauge2 = Gauge(
+  document.getElementById("gauge2"), {
+    max: 100,
+    dialStartAngle: -90,
+    dialEndAngle: -90.001,
+    value: 40,
   }
 );
 </script>
