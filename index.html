@@ -219,7 +219,7 @@ a.link {
 </style>
 </head>
 <body>
-  <h1>Safe_Gauge </h1>
+  <h1>Safe Gauge </h1>
 
   <a href="#" id="click"> Connect to USB!</a>
 <div class="tab">
@@ -238,6 +238,18 @@ a.link {
 </div>
 <div id="gauge2" class="gauge-container">
   <span class="label">Sensor2</span>
+</div>
+<div id="gauge3" class="gauge-container">
+  <span class="label">Sensor3</span>
+</div>
+<div id="gauge4" class="gauge-container">
+  <span class="label">Sensor4</span>
+</div>
+<div id="gauge5" class="gauge-container">
+  <span class="label">Sensor5</span>
+</div>
+<div id="gauge6" class="gauge-container">
+  <span class="label">Sensor6</span>
 </div>
 </div>
 
@@ -325,6 +337,46 @@ var gauge1 = Gauge(
 <script>
 var gauge2 = Gauge(
   document.getElementById("gauge2"), {
+    max: 100,
+    dialStartAngle: -90,
+    dialEndAngle: -90.001,
+    value: 40,
+  }
+);
+</script>
+<script>
+var gauge3 = Gauge(
+  document.getElementById("gauge3"), {
+    max: 100,
+    dialStartAngle: -90,
+    dialEndAngle: -90.001,
+    value: 40,
+  }
+);
+</script>
+<script>
+var gauge4 = Gauge(
+  document.getElementById("gauge4"), {
+    max: 100,
+    dialStartAngle: -90,
+    dialEndAngle: -90.001,
+    value: 40,
+  }
+);
+</script>
+<script>
+var gauge5 = Gauge(
+  document.getElementById("gauge5"), {
+    max: 100,
+    dialStartAngle: -90,
+    dialEndAngle: -90.001,
+    value: 40,
+  }
+);
+</script>
+<script>
+var gauge6 = Gauge(
+  document.getElementById("gauge6"), {
     max: 100,
     dialStartAngle: -90,
     dialEndAngle: -90.001,
