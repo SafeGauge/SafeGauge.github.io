@@ -58,6 +58,7 @@ body {font-family: Arial;}
   <p id="num_two"></p> 
   <p id="num"></p> 
   <p><button onclick = "subtractor()">Minus 1</button></p>
+  <div id="gauge-demo" class="gauge-container"></div>
 </div>
 
 <div id="Paris" class="tabcontent">
@@ -84,6 +85,7 @@ function openCity(evt, cityName) {
   evt.currentTarget.className += " active";
 }
 </script>
+<script src="dist/gauge.min.js"></script>
 <script src="serial.js"></script>
 <script>
 serial.requestPort = function(){
@@ -110,7 +112,7 @@ connectButton.addEventListener('click', function()
       port = selectedPort
       port.connect().then(() => {
         console.log('Connected!')
-        connectButton.textContent = 'Disconnect'
+        connectButton.textContent = 'Disconnect Data Link'
         port.onReceive = data => {
           console.log(textDecoder.decode(data))
           document.getElementById("num_two").innerHTML = textDecoder.decode(data);
@@ -128,6 +130,9 @@ connectButton.addEventListener('click', function()
      x = x-1; 
      document.getElementById("num").innerHTML = x; 
    }; 
+</script>
+<script>
+var myGauge = Gauge(document.getElementById("gauge-demo"));
 </script>
 </body>
 </html>
