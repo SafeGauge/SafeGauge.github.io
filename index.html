@@ -66,6 +66,7 @@ a.link {
   float: left;
   padding: 10px;
   background-color: #222;
+  border: 3px solid blue;
   margin: 7px;
   border-radius: 3px;
   position: relative;
@@ -219,7 +220,7 @@ a.link {
 </style>
 </head>
 <body>
-  <h1>Safe Gauge </h1>
+  <h1>Safe_Gauge </h1>
 
   <a href="#" id="click"> Connect to USB!</a>
 <div class="tab">
@@ -375,6 +376,7 @@ var gauge5 = Gauge(
 );
 </script>
 <script>
+
 var gauge6 = Gauge(
   document.getElementById("gauge6"), {
     max: 100,
@@ -383,6 +385,8 @@ var gauge6 = Gauge(
     value: 40,
   }
 );
+document.getElementById("gauge6").style.border = "3px solid blue";
+
 </script>
 </body>
 </html>
