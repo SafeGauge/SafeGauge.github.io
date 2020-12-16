@@ -223,7 +223,7 @@ a.link {
 </style>
 </head>
 <body>
-  <h1>Safe Gauge </h1>
+  <h1>Safe_Gauge </h1>
 
   <a href="#" id="click"> Connect to USB!</a>
 <div class="tab">
@@ -262,8 +262,8 @@ a.link {
 </div>
 
 <div id="Tokyo" class="tabcontent">
-  <h3>Tokyo</h3>
-  <p>Tokyo is the capital of Japan.</p>
+  <h3>Help</h3>
+  <p>help</p>
 </div>
 
 <script>
@@ -312,7 +312,6 @@ connectButton.addEventListener('click', function()
         port.onReceive = data => {
           console.log(textDecoder.decode(data))
           document.getElementById("num_two").innerHTML = textDecoder.decode(data);
-          document.getElementById("file").value = textDecoder.decode(data);
           gauge1.setValueAnimated(textDecoder.decode(data), 1);
         }
         port.onReceiveError = error => {console.log('Receive error: '+ error)}
