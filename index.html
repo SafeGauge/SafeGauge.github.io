@@ -1,5 +1,5 @@
 <h1>Safe Gauge </h1>
-<p>  Firmware updater and IOT Dashboar</p>
+<p>  Firmware updater and IOT Dashboard</p>
 <a href="#" id="click"> Connect to USB!</a>
 <script src="serial.js"></script>
 
@@ -32,6 +32,7 @@ connectButton.addEventListener('click', function()
         port.onReceive = data => {
           console.log(textDecoder.decode(data))
           document.getElementById("num_two").innerHTML = textDecoder.decode(data);
+          document.getElementById('file').setAttribute('number', '78');
         }
         port.onReceiveError = error => {console.log('Receive error: '+ error)}
       }, error => {console.log('Connection error: '+ error) })
@@ -46,7 +47,6 @@ connectButton.addEventListener('click', function()
 <p><button onclick = "subtractor()">Minus 1</button></p>
  <script> 
    var x = 5 
-  
    function subtractor(){
       x = x-1; 
       document.getElementById("num").innerHTML = x; 
