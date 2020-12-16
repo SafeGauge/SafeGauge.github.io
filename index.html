@@ -31,7 +31,7 @@ connectButton.addEventListener('click', function()
         connectButton.textContent = 'Disconnect'
         port.onReceive = data => {
           console.log(textDecoder.decode(data))
-          number = textDecoder.decode(data)
+          document.getElementById("file").innerHTML = textDecoder.decode(data);
         }
         port.onReceiveError = error => {console.log('Receive error: '+ error)}
       }, error => {console.log('Connection error: '+ error) })
