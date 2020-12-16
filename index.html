@@ -2,9 +2,10 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="index.css" />
+<link rel="stylesheet" href="dark.css" />
 <style>
 body {font-family: Arial;}
-
 /* Style the tab */
 .tab {
   overflow: hidden;
@@ -60,7 +61,7 @@ body {font-family: Arial;}
 </style>
 </head>
 <body>
-  <h1>Safe Gauge </h1>
+  <h1>Safe_Gauge </h1>
 
   <a href="#" id="click"> Connect to USB!</a>
 <div class="tab">
@@ -75,6 +76,30 @@ body {font-family: Arial;}
   <p id="num"></p> 
   <p><button onclick = "subtractor()">Minus 1</button></p>
   <div id="gauge-demo" class="gauge-container"></div>
+  <div class="example">
+    <div class="code">
+      <pre>
+<code class="html">  &lt;div id="gauge1" class="gauge-container"&gt;&lt;/div&gt;</code>
+<code class="javascript">
+var gauge1 = Gauge(
+  document.getElementById("gauge1"),
+  {
+    max: 100,
+    dialStartAngle: -90,
+    dialEndAngle: -90.001,
+    value: 100,
+    label: function(value) {
+      return Math.round(value) + "/" + this.max;
+    }
+  }
+);
+</code>
+      </pre>
+    </div>
+    <div class="display">
+      <div id="gauge1" class="gauge-container one"></div>
+    </div>
+  </div>
 </div>
 
 <div id="Paris" class="tabcontent">
