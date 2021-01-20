@@ -11,7 +11,7 @@ var serial = {};
 
   serial.requestPort = function() {
     const filters = [
-      { 'vendorId': 0x2341, 'productId': 0x8036 }, // Arduino Leonardo
+      { 'vendorId': 0x2886, 'productId': 0x802F }, // seed xiao
     ];
     return navigator.usb.requestDevice({ 'filters': filters }).then(
       device => new serial.Port(device)
