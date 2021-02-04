@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>SAFE GA</title>
+    <title>SAFE GAUGE</title>
     <script src="serial.js"></script>
     <script src="application.js"></script>
     <link rel="stylesheet" href="application.css">
@@ -29,58 +29,61 @@
         </div>
       </div>
     </div>
-        <div id="chart_div"></div>
-    <script type="text/javascript" loading="lazy" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<div id="monitor-chart"></div>
 
-        // load current chart package
-        google.charts.load("current", {
-            packages: ["corechart", "line"]
-        });
+<script type="text/javascript">
+// Load google charts
+google.charts.load('current', {
+  callback: function () {
+    var chart = new google.visualization.LineChart(document.getElementById('monitor-chart'));
 
-        // set callback function when api loaded
-        google.charts.setOnLoadCallback(drawChart);
+    var options = {'title' : 'SENSOR DATA',
+      animation: {
+        duration: 1000,
+        easing: 'out',
+        startup: true
+      },
+      hAxis: {
+        title: 'Time'
+      },
+      vAxis: {
+        title: 'PRESSURE READING'
+      },
+      height: 400
+    };
 
-        function drawChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('datetime', 'Time');
+    data.addColumn('number', 'Sensor 1');
+    data.addColumn('number', 'Sensor 2');
 
-            // create data object with default value
-            let data = google.visualization.arrayToDataTable([
-                ["TIME", "Pressure"],
-                [0, 0]
-            ]);
+    var formatDate = new google.visualization.DateFormat({pattern: 'hh:mm:ss'});
+    var formatNumber = new google.visualization.NumberFormat({pattern: '#,##0.0'});
 
-            // create options object with titles, colors, etc.
-            let options = {
-                title: "SAFE GAUGE DASHBOARD",
-                hAxis: {
-                    title: "Time"
-                },
-                vAxis: {
-                    title: "Pressure"
-                }
-            };
+    getTemp();
+    setInterval(getTemp, 5000);
+    function getTemp() {
+      var temperature = (Math.random() * (35 - 30) + 30);
+      var humidity = (Math.random() * (40 - 15) + 15);
+      var timestamp = new Date();
+      drawChart(timestamp, temperature, humidity);
+    }
 
-            // draw chart on load
-            let chart = new google.visualization.LineChart(
-                document.getElementById("chart_div")
-            );
-            chart.draw(data, options);
+    function drawChart(timestamp, temperature, humidity) {
+      data.addRow([timestamp, temperature, humidity]);
 
-            // interval for adding new data every 250ms
-            let index = 0;
-            setInterval(function() {
+      formatDate.format(data, 0);
+      formatNumber.format(data, 1);
+      formatNumber.format(data, 2);
 
-                // instead of this random, you can make an ajax call for the current cpu usage or what ever data you want to display
-                let random = Math.random() * 30 + 20;
+      chart.draw(data, options);
+    }
+  },
+  packages:['corechart']
+});
+</script>
 
-                data.addRow([index, random]);
-                chart.draw(data, options);
-
-                index++;
-            }, 250);
-
-        }
-    </script>
   </body>
   <head>
     <meta charset="UTF-8" />
