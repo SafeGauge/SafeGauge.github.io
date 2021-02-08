@@ -314,7 +314,7 @@ connectButton.addEventListener('click', function()
         port.onReceive = data => {
           console.log(textDecoder.decode(data))
           myObj = textDecoder.decode(data);
-          x = myObj.Max;
+          x = myObj.Sensor.Max;
           document.getElementById("num_two").innerHTML = x;
         }
         port.onReceiveError = error => {console.log('Receive error: '+ error)}
