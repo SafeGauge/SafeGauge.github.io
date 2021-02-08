@@ -396,9 +396,11 @@ var gauge6 = Gauge(
   }
 );
 document.getElementById("gauge6").style.border = "3px solid blue";
-<script src="https://www.gstatic.com/charts/loader.js"></script>
 </script>
-  <script type="text/javascript">
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+<div id="monitor-chart"></div>
+
+<script type="text/javascript">
 // Load google charts
 google.charts.load('current', {
   callback: function () {
@@ -449,5 +451,6 @@ google.charts.load('current', {
   packages:['corechart']
 });
 </script>
+
 </body>
 </html>
