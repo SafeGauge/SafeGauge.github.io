@@ -255,6 +255,7 @@ a.link {
 <div id="gauge6" class="gauge-container">
   <span class="label">Sensor6</span>
 </div>
+  <div id="monitor-chart"></div>
 </div>
 
 <div id="Paris" class="tabcontent">
@@ -395,6 +396,57 @@ var gauge6 = Gauge(
 );
 document.getElementById("gauge6").style.border = "3px solid blue";
 
+</script>
+  <script type="text/javascript">
+// Load google charts
+google.charts.load('current', {
+  callback: function () {
+    var chart = new google.visualization.LineChart(document.getElementById('monitor-chart'));
+
+    var options = {'title' : 'SENSOR DATA',
+      animation: {
+        duration: 1000,
+        easing: 'out',
+        startup: true
+      },
+      hAxis: {
+        title: 'Time'
+      },
+      vAxis: {
+        title: 'PRESSURE READING'
+      },
+      height: 400
+    };
+
+    var data = new google.visualization.DataTable();
+    data.addColumn('datetime', 'Time');
+    data.addColumn('number', 'Sensor 1');
+    data.addColumn('number', 'Sensor 2');
+
+    var formatDate = new google.visualization.DateFormat({pattern: 'hh:mm:ss'});
+    var formatNumber = new google.visualization.NumberFormat({pattern: '#,##0.0'});
+
+    getTemp();
+    setInterval(getTemp, 5000);
+    function getTemp() {
+      var temperature = (Math.random() * (35 - 30) + 30);
+      var humidity = (Math.random() * (40 - 15) + 15);
+      var timestamp = new Date();
+      drawChart(timestamp, temperature, humidity);
+    }
+
+    function drawChart(timestamp, temperature, humidity) {
+      data.addRow([timestamp, temperature, humidity]);
+
+      formatDate.format(data, 0);
+      formatNumber.format(data, 1);
+      formatNumber.format(data, 2);
+
+      chart.draw(data, options);
+    }
+  },
+  packages:['corechart']
+});
 </script>
 </body>
 </html>
