@@ -223,7 +223,7 @@ a.link {
 </style>
 </head>
 <body>
-  <h1>Safe Gauge </h1>
+  <h1>Safe Gaugee </h1>
 
   <a href="#" id="click"> Connect to USB!</a>
 <div class="tab">
@@ -314,7 +314,7 @@ connectButton.addEventListener('click', function()
         port.onReceive = data => {
           console.log(textDecoder.decode(data))
           myObj = textDecoder.decode(data);
-          dx = myObj.time;
+          dx = myObj;
           document.getElementById("num_two").innerHTML = dx;
         }
         port.onReceiveError = error => {console.log('Receive error: '+ error)}
