@@ -223,7 +223,7 @@ a.link {
 </style>
 </head>
 <body>
-  <h1>Safe Gauge </h1>
+  <h1>Safe Gaugeee </h1>
 
   <a href="#" id="click"> Connect to USB!</a>
 <div class="tab">
@@ -297,7 +297,7 @@ var port
 var connectButton = document.getElementById('click')
 var textDecoder = new TextDecoder()
 var number = 67
-var myObj, dx = 0, dy = 0;
+var myObj, dx = 0, dy = 0, i, x = "";
 connectButton.addEventListener('click', function()
 {
   if(port){
@@ -325,6 +325,17 @@ connectButton.addEventListener('click', function()
            if(isValidJSONString(myObj)){
             var obj= JSON.parse(myObj);
             console.log(obj.time)
+            switch (obj.sensor[0]) {
+            case "pt1":
+            gauge1.setValueAnimated(obj.data[0], 1);
+            break;
+            case "pt2":
+            gauge2.setValueAnimated(obj.data[0], 1);
+            break;
+            case "pt3":
+            gauge3.setValueAnimated(obj.data[0], 1);
+            break;
+           }      
             document.getElementById("num_two").innerHTML = obj.data[0];
             }
           
