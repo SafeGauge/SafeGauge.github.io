@@ -223,7 +223,7 @@ a.link {
 </style>
 </head>
 <body>
-  <h1>Safe Gau </h1>
+  <h1>Safe Gaur </h1>
 
   <a href="#" id="click"> Connect to USB!</a>
 <div class="tab">
@@ -313,8 +313,19 @@ connectButton.addEventListener('click', function()
         connectButton.textContent = 'Disconnect Data Link'
         port.onReceive = data => {
           console.log(textDecoder.decode(data))
-          myObj = JSON.parse(textDecoder.decode(data));
-          console.log(myObj.sensor)
+          myObj = textDecoder.decode(data);
+          function isValidJSONString(str) {
+          try {
+             JSON.parse(str);
+             } catch (e) {
+             return false;
+             }
+               return true;
+           }
+           if(isValidJSONString(myObj)){
+            var obj= JSON.parse(myObj);
+            console.log(obj.time)
+            }
           document.getElementById("num_two").innerHTML = dx;
         }
         port.onReceiveError = error => {console.log('Receive error: '+ error)}
