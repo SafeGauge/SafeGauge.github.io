@@ -223,7 +223,7 @@ a.link {
 </style>
 </head>
 <body>
-  <h1>Safe Gauge </h1>
+  <h1>Safe Gaug </h1>
 
   <a href="#" id="click"> Connect to USB!</a>
 <div class="tab">
@@ -255,11 +255,11 @@ a.link {
 <div id="gauge6" class="gauge-container">
   <span class="label">Sensor6</span>
 </div>
-  <div id="monitor-chart"></div>
 </div>
 
 <div id="Paris" class="tabcontent">
   <p><label for="file">File progress:</label> <progress id="file" value="number" max="100"> 70% </progress></p>
+  <div id="monitor-chart"></div>
 </div>
 
 <div id="Tokyo" class="tabcontent">
@@ -297,6 +297,7 @@ var port
 var connectButton = document.getElementById('click')
 var textDecoder = new TextDecoder()
 var number = 67
+var myObj, x = 0;
 connectButton.addEventListener('click', function()
 {
   if(port){
@@ -312,9 +313,11 @@ connectButton.addEventListener('click', function()
         connectButton.textContent = 'Disconnect Data Link'
         port.onReceive = data => {
           console.log(textDecoder.decode(data))
-          document.getElementById("num_two").innerHTML = textDecoder.decode(data);
-          document.getElementById("file").value = textDecoder.decode(data);
-          gauge1.setValueAnimated(textDecoder.decode(data), 1);
+          myObj = textDecoder.decode(data);
+          x = myObj.Average;
+          document.getElementById("num_two").innerHTML = x;
+          document.getElementById("file").value = x;
+          gauge1.setValueAnimated(x, 1);
         }
         port.onReceiveError = error => {console.log('Receive error: '+ error)}
       }, error => {console.log('Connection error: '+ error) })
