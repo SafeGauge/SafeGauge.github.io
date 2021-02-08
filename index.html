@@ -223,7 +223,7 @@ a.link {
 </style>
 </head>
 <body>
-  <h1>Safe Gaugeee </h1>
+  <h1>Safe Gauge </h1>
 
   <a href="#" id="click"> Connect to USB!</a>
 <div class="tab">
@@ -254,6 +254,18 @@ a.link {
 </div>
 <div id="gauge6" class="gauge-container">
   <span class="label">Sensor6</span>
+</div>
+  <div id="gauge7" class="gauge-container">
+  <span class="label">Sensor7</span>
+</div>
+  <div id="gauge8" class="gauge-container">
+  <span class="label">Sensor8</span>
+</div>
+  <div id="gauge9" class="gauge-container">
+  <span class="label">Sensor9</span>
+</div>
+  <div id="gauge10" class="gauge-container">
+  <span class="label">Sensor10</span>
 </div>
 </div>
 
@@ -334,6 +346,27 @@ connectButton.addEventListener('click', function()
             break;
             case "pt3":
             gauge3.setValueAnimated(obj.data[0], 1);
+            break;
+            case "pt4":
+            gauge4.setValueAnimated(obj.data[0], 1);
+            break;
+            case "pt5":
+            gauge5.setValueAnimated(obj.data[0], 1);
+            break;
+            case "pt6":
+            gauge6.setValueAnimated(obj.data[0], 1);
+            break;
+            case "pt7":
+            gauge7.setValueAnimated(obj.data[0], 1);
+            break;
+            case "pt8":
+            gauge8.setValueAnimated(obj.data[0], 1);
+            break;
+            case "pt9":
+            gauge9.setValueAnimated(obj.data[0], 1);
+            break;
+            case "pt10":
+            gauge10.setValueAnimated(obj.data[0], 1);
             break;
            }      
             document.getElementById("num_two").innerHTML = obj.data[0];
@@ -419,6 +452,38 @@ var gauge6 = Gauge(
   }
 );
 document.getElementById("gauge6").style.border = "3px solid blue";
+var gauge7 = Gauge(
+  document.getElementById("gauge7"), {
+    max: 100,
+    dialStartAngle: -90,
+    dialEndAngle: -90.001,
+    value: 40,
+  }
+  );
+  var gauge8 = Gauge(
+  document.getElementById("gauge8"), {
+    max: 100,
+    dialStartAngle: -90,
+    dialEndAngle: -90.001,
+    value: 40,
+  }
+    );
+var gauge9 = Gauge(
+  document.getElementById("gauge9"), {
+    max: 100,
+    dialStartAngle: -90,
+    dialEndAngle: -90.001,
+    value: 40,
+  }
+  );
+  var gauge10 = Gauge(
+  document.getElementById("gauge10"), {
+    max: 100,
+    dialStartAngle: -90,
+    dialEndAngle: -90.001,
+    value: 40,
+  }
+  );
 </script>
   <script src="https://www.gstatic.com/charts/loader.js"></script>
 <div id="monitor-chart"></div>
