@@ -5,7 +5,7 @@
     <head>
         <script src="jquery.min.js" type="text/javascript"></script>
         <script src="mqttws31.js" type="text/javascript"></script>
-        <title>SAFE GAUGE REMOTE ACCESS</title>
+        <title>SAF GAUGE REMOTE ACCESS</title>
         <script type="text/javascript">
          //Using the HiveMQ public Broker, with a random client Id
  var client = new Messaging.Client("broker.mqttdashboard.com", 8000, "myclientid_" + parseInt(Math.random() * 100, 10));
@@ -24,6 +24,7 @@
 
  //Connect Options
  var options = {
+     useSSL: true,
      timeout: 3,
      //Gets Called if the connection has sucessfully been established
      onSuccess: function () {
