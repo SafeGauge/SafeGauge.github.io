@@ -5,7 +5,7 @@
     <head>
         <script src="jquery.min.js" type="text/javascript"></script>
         <script src="mqttws31.js" type="text/javascript"></script>
-        <title>SA GAUGE REMOTE ACCESS</title>
+        <title>SAFE GAUGE REMOTE ACCESS</title>
         <script type="text/javascript">
 // Create a client instance: Broker, Port, Websocket Path, Client ID
 client = new Paho.MQTT.Client("iot.eclipse.org", Number(80), "/ws", "clientId");
@@ -26,7 +26,7 @@ function onConnect(){
 
 // Connect the client, providing an onConnect callback
 client.connect({
-	onSuccess: onConnect,
+	onSuccess: onConnect
 });
         </script>
     </head>
