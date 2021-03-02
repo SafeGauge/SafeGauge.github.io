@@ -1,399 +1,44 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {font-family: Arial;}
+  <head>
+    <title>Add Map</title>
 
-/* Style the tab */
-.tab {
-  overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
-}
+    <style type="text/css">
+      /* Set the size of the div element that contains the map */
+      #map {
+        height: 400px;
+        /* The height is 400 pixels */
+        width: 100%;
+        /* The width is the width of the web page */
+      }
+    </style>
+    <script>
+      // Initialize and add the map
+      function initMap() {
+        // The location of Uluru
+        const uluru = { lat: -25.344, lng: 131.036 };
+        // The map, centered at Uluru
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 4,
+          center: uluru,
+        });
+        // The marker, positioned at Uluru
+        const marker = new google.maps.Marker({
+          position: uluru,
+          map: map,
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <h3>My Google Maps Demo</h3>
+    <!--The div element for the map -->
+    <div id="map"></div>
 
-/* Style the buttons inside the tab */
-.tab button {
-  background-color: inherit;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  transition: 0.3s;
-  font-size: 17px;
-}
-
-/* Change background color of buttons on hover */
-.tab button:hover {
-  background-color: #ddd;
-}
-
-/* Create an active/current tablink class */
-.tab button.active {
-  background-color: #ccc;
-}
-
-/* Style the tab content */
-.tabcontent {
-  display: none;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-top: none;
-}
-.info {
-  clear: both;
-  padding: 10px;
-  font-size: 0.9em;
-}
-a.link {
-  color: rgb(47, 227, 255);
-  text-decoration: none;
-}
-
-.warn {
-  font-size: 0.8em;
-  background-color: darken(orange, 15%);
-  color: #fff;
-  padding: 10px;
-}
-
-
-
-/* ------ Default Style ---------- */
-.gauge-container {
-  width: 150px;
-  height: 150px;
-  display: block;
-  float: left;
-  padding: 10px;
-  background-color: #222;
-  margin: 7px;
-  border-radius: 6px;
-  border-style: solid;
-  position: relative;
-  border-width: thick;
-}
-.label {
-  color: white;
-  padding: 8px;
-  font-family: Arial;
-}
-.success {background-color: #4CAF50;} /* Green */
-.info {background-color: #2196F3;} /* Blue */
-.warning {background-color: #ff9800;} /* Orange */
-.danger {background-color: #f44336;} /* Red */ 
-.other {background-color: #e7e7e7; color: black;} /* Gray */ 
-.gauge-container > .gauge .dial {
-  stroke: #334455;
-  stroke-width: 2;
-  fill: rgba(0,0,0,0);
-}
-.gauge-container > .gauge .value {
-  stroke: rgb(47, 227, 255);
-  stroke-width: 2;
-  fill: rgba(0,0,0,0);
-}
-.gauge-container > .gauge .value-text {
-  fill: rgb(47, 227, 255);
-  font-family: sans-serif;
-  font-weight: bold;
-  font-size: 0.8em;
-}
-
-
-
-
-/* ------- Alternate Style ------- */
-.wrapper {
-  height: 100px;
-  float: left;
-  margin: 7px;
-  overflow: hidden;
-}
-.wrapper > .gauge-container {
-  margin: 0;
-}
-.gauge-container.two {
-}
-.gauge-container.two > .gauge .dial {
-  stroke: #334455;
-  stroke-width: 10;
-}
-.gauge-container.two > .gauge .value {
-  stroke: orange;
-  stroke-dasharray: none;
-  stroke-width: 13;
-}
-.gauge-container.two > .gauge .value-text {
-  fill: #ccc;
-  font-weight: 100;
-  font-size: 1em;
-}
-
-
-
-/* ------- Alternate Style ------- */
-.gauge-container.three {
-}
-.gauge-container.three > .gauge .dial {
-  stroke: #334455;
-  stroke-width: 2;
-}
-.gauge-container.three > .gauge .value {
-  stroke: #C9DE3C;
-  stroke-width: 5;
-}
-.gauge-container.three > .gauge .value-text {
-  fill: #C9DE3C;
-} 
-
-
-
-/* ----- Alternate Style ----- */
-.gauge-container.four > .gauge .dial {
-  stroke: #334455;
-  stroke-width: 10;
-}
-.gauge-container.four > .gauge .value {
-  stroke: #F32450;
-  stroke-dasharray: none;
-  stroke-width: 10;
-}
-.gauge-container.four > .gauge .value-text {
-  fill: #F32450;
-  transform: translate3d(26%, 20%, 0);
-  display: inline-block;
-}
-.gauge-container.four .value-text {
-  color: #F32450;
-  font-weight: 100;
-  position: absolute;
-  bottom: 18%;
-  right: 10%;
-  display: inline-block;
-} 
-
-
-
-/* ----- Alternate Style ----- */
-.gauge-container.five > .gauge .dial {
-  stroke: #334455;
-  stroke-width: 5;
-}
-.gauge-container.five > .gauge .value {
-  stroke: #F8774B;
-  stroke-dasharray: 25 1;
-  stroke-width: 5;
-}
-.gauge-container.five > .gauge .value-text {
-  fill: #F8774B;
-  font-size: 0.7em;
-}
-
-
-
-/* ----- Alternate Style ----- */
-  .gauge-container.six > .gauge .dial {
-    stroke: #334455;
-    fill: "#334455";
-    stroke-width: 20;
-  }
-  .gauge-container.six > .gauge .value {
-    stroke: #FF6DAF;
-    stroke-width: 20;
-  }
-  .gauge-container.six > .gauge .value-text {
-    fill: #FF6DAF;
-    font-size: 0.7em;
-  }
-
-
-.gauge-container.seven > .gauge .dial {
-  stroke: transparent;
-  stroke-width: 5;
-  transform: scale(0.9,0.9) translate3d(5.5px, 5.5px, 0);
-  fill: rgba(148, 112, 57, 0.42);
-}
-.gauge-container.seven > .gauge .value {
-  stroke: #F8774B;
-  stroke-dasharray: none;
-  stroke-width: 5;
-}
-</style>
-</head>
-<body>
-  <h1>Safe_Gauge </h1>
-
-  <a href="#" id="click"> Connect to USB!</a>
-<div class="tab">
-  <button class="tablinks" onclick="openCity(event, 'London')">IOT Dashboard</button>
-  <button class="tablinks" onclick="openCity(event, 'Paris')">Firmware Update</button>
-  <button class="tablinks" onclick="openCity(event, 'Tokyo')">Help</button>
-</div>
-
-<div id="London" class="tabcontent">
-  <p><label for="file">File progress:</label> <progress id="file" value="number" max="100"> 70% </progress></p>
-  <p id="num_two"></p> 
-  <p id="num"></p> 
-  <p><button onclick = "subtractor()">Minus 1</button></p>
-  <div id="gauge1" class="gauge-container">
-    <span class="label success">ONE</span>
-</div>
-<div id="gauge2" class="gauge-container">
-  <span class="label info">TWO</span>
-</div>
-<div id="gauge3" class="gauge-container">
-  <span class="label warning">THREE</span>
-</div>
-<div id="gauge4" class="gauge-container">
-  <span class="label danger">Sensor4</span>
-</div>
-<div id="gauge5" class="gauge-container">
-  <span class="label">Sensor5</span>
-</div>
-<div id="gauge6" class="gauge-container">
-  <span class="label">Sensor6</span>
-</div>
-</div>
-
-<div id="Paris" class="tabcontent">
-  <p><label for="file">File progress:</label> <progress id="file" value="number" max="100"> 70% </progress></p>
-</div>
-
-<div id="Tokyo" class="tabcontent">
-  <h3>Help</h3>
-  <p>help</p>
-</div>
-
-<script>
-function openCity(evt, cityName) {
-  var i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
-  }
-  tablinks = document.getElementsByClassName("tablinks");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
-  }
-  document.getElementById(cityName).style.display = "block";
-  evt.currentTarget.className += " active";
-}
-</script>
-<script src="dist/gauge.min.js"></script>
-<script src="serial.js"></script>
-<script>
-serial.requestPort = function(){
-  const filters = [
-    {'vendorId': 0x2341}
-  ];
-  return navigator.usb.requestDevice({'filters':filters}).then(
-    device => new serial.Port(device)
-  );
-}
-var port
-var connectButton = document.getElementById('click')
-var textDecoder = new TextDecoder()
-var number = 67
-connectButton.addEventListener('click', function()
-{
-  if(port){
-    connectButton.textContent = 'Connect to Data Link'
-    port.disconnect()
-    port = null
-  }
-  else {
-    serial.requestPort().then(selectedPort => {
-      port = selectedPort
-      port.connect().then(() => {
-        console.log('Connected!')
-        connectButton.textContent = 'Disconnect Data Link'
-        port.onReceive = data => {
-          console.log(textDecoder.decode(data))
-          document.getElementById("num_two").innerHTML = textDecoder.decode(data);
-          gauge1.setValueAnimated(textDecoder.decode(data), 1);
-        }
-        port.onReceiveError = error => {console.log('Receive error: '+ error)}
-      }, error => {console.log('Connection error: '+ error) })
-    }).catch(error =>{console.log('Connection error: ' + error) })
-  }
-})
-</script>
-<script> 
-  var x = 5 
-  function subtractor(){
-     x = x-1; 
-     document.getElementById("num").innerHTML = x; 
-   }; 
-</script>
-<script>
-var gauge1 = Gauge(
-  document.getElementById("gauge1"), {
-    max: 100,
-    dialStartAngle: -90,
-    dialEndAngle: -90.001,
-    value: 0,
-  }
-);
-document.getElementById("gauge1").style.border = "3px solid green";
-</script>
-<script>
-var gauge2 = Gauge(
-  document.getElementById("gauge2"), {
-    max: 100,
-    dialStartAngle: -90,
-    dialEndAngle: -90.001,
-    value: 40,
-  }
-);
-document.getElementById("gauge2").style.border = "3px solid purple";
-</script>
-<script>
-var gauge3 = Gauge(
-  document.getElementById("gauge3"), {
-    max: 100,
-    dialStartAngle: -90,
-    dialEndAngle: -90.001,
-    value: 40,
-  }
-);
-document.getElementById("gauge3").style.border = "3px solid yellow";
-</script>
-<script>
-var gauge4 = Gauge(
-  document.getElementById("gauge4"), {
-    max: 100,
-    dialStartAngle: -90,
-    dialEndAngle: -90.001,
-    value: 40,
-  }
-);
-document.getElementById("gauge4").style.border = "3px solid green";
-</script>
-<script>
-var gauge5 = Gauge(
-  document.getElementById("gauge5"), {
-    max: 100,
-    dialStartAngle: -90,
-    dialEndAngle: -90.001,
-    value: 40,
-  }
-);
-document.getElementById("gauge5").style.border = "coral";
-</script>
-<script>
-
-var gauge6 = Gauge(
-  document.getElementById("gauge6"), {
-    max: 100,
-    dialStartAngle: -90,
-    dialEndAngle: -90.001,
-    value: 40,
-  }
-);
-document.getElementById("gauge6").style.border = "3px solid blue";
-
-</script>
-</body>
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
+  </body>
 </html>
