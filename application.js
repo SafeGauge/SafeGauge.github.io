@@ -37,6 +37,10 @@
           if(data.toString(16) == 0x80)
           {
             console.log("got it");
+          }
+          else{
+            console.log("did not get it bro");
+          }
           if (data.getInt8() === 13) {
             currentReceiverLine = null;
           } else {
