@@ -34,6 +34,9 @@
           let textDecoder = new TextDecoder();
           console.log(textDecoder.decode(data));
           console.log(data.toString(16));
+          if(data.toString(16) == 0x80)
+          {
+            console.log("got it");
           if (data.getInt8() === 13) {
             currentReceiverLine = null;
           } else {
