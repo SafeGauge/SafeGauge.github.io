@@ -33,6 +33,7 @@
         port.onReceive = data => {
           let textDecoder = new TextDecoder();
           console.log(textDecoder.decode(data));
+          console.log(data.toString(16));
           if (data.getInt8() === 13) {
             currentReceiverLine = null;
           } else {
